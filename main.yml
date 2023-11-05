@@ -4,5 +4,17 @@
   connection: localhost
   roles:
     - role: "roles/configure-tmux"
+    - role: "roles/configure-system"
+    - role: "roles/configure-logging"
+    - role: "roles/configure-browser"
     - role: "roles/customize-terminal"
-
+    - role: "roles/install-tools"
+    - role: gantsign.visual-studio-code
+      users:
+        - username: "{{ ansible_user_id }}"
+          visual_studio_code_extensions:
+            - streetsidesoftware.code-spell-checker
+            - ms-python.python
+            - DEVSENSE.phptools-vscode
+            - GitHub.copilot
+            - snyk-security.snyk-vulnerability-scanner
