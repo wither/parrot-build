@@ -4,3 +4,5 @@
   connection: localhost
   roles:
     - role: "roles/configure-tmux"
+    - role: "roles/customize-terminal"
+
