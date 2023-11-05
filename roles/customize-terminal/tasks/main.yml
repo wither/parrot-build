@@ -1,0 +1,40 @@
+---
+- name: "Copy .bashrc to {{ ansible_env.HOME }}"
+  copy:
+    src: "{{ role_path }}/files/.bashrc"
+    dest: "{{ ansible_env.HOME }}"
+
+- name: "Install JetBrains Mono font"
+  package:
+    name:
+      - fonts-jetbrains-mono
+    state: latest
+  become: true
+  become_method: sudo
+
+- name: "Read current MATE terminal profiles"
+  dconf:
+    key: "/org/mate/terminal/global/profile-list"
+    state: "read"
+  register: "profile_list"
+
+- name: "Check if profile_list is empty"
+  set_fact:
+    profile_list: 
+      value: '["default"]'
+  when: "profile_list.value is none"
+
+- name: "Add new profile"
+  set_fact:
+    new_profile_list: "{{ profile_list.value | regex_replace(']$', \", 'main']\") }}"
+
+- name: "Write updated profile_list"
+  dconf:
+    key: "/org/mate/terminal/global/profile-list"
+    value: "{{ new_profile_list }}"
+  when: "'main' not in profile_list.value"
+
+- name: "Restore main profile from dump"
+  shell:
+    cmd: "dconf load /org/mate/terminal/profiles/main/ < {{ role_path }}/files/mainprofile"
+  when: "'main' not in profile_list.value"
