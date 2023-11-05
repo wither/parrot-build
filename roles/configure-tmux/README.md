@@ -1,7 +1,7 @@
 configure-tmux
 =========
 
-Moves my tmux configuration file from configure-tmux/files to my home directory.
+Moves my tmux configuration file from `/configure-tmux/files/` to my home directory.
 
 Requirements
 ------------
