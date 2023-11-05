@@ -1,0 +1,6 @@
+---
+- name: Customizing Parrot OS HTB Edition
+  hosts: localhost
+  connection: localhost
+  roles:
+    - role: "roles/configure-tmux"

@@ -1,0 +1,11 @@
+---
+- name: "Install Tmux"
+  apt:
+    name: tmux
+    state: present
+  become: true
+  become_method: sudo
+- name: "Copy Tmux Config to {{ ansible_env.HOME }}/"
+  copy:
+    src: "{{ role_path }}/files/.tmux.conf"
+    dest: "{{ ansible_env.HOME }}"
