@@ -18,6 +18,7 @@
       - flameshot
       - exiftool
       - xmlstarlet
+      - ffuf
     state: latest
   become: true
   become_method: sudo
